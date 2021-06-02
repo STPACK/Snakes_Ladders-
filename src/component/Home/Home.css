@@ -1,0 +1,27 @@
+.home__container{
+    width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-flow: column;
+    border-radius: 20px;
+    margin-top: 50px;
+    padding: 20px;
+    justify-content:center;
+    box-shadow: 0 4px 6px rgba(174, 190, 205, 0.3);
+
+}
+.header__container{
+    text-align: center;
+}
+
+.input__container{
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    margin: 20px;
+
+}
+.player__container div{
+    display: flex;
+
+}

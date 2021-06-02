@@ -1,0 +1,24 @@
+.player__img1{
+    z-index: 100;
+    position: absolute;
+    left: 20px;
+    bottom: 10px;
+  }
+.player__img2{
+    z-index: 100;
+    position: absolute;
+    left: 55px;
+    bottom: 10px;
+  }
+.player__img3{
+    z-index: 100;
+    position: absolute;
+    left: 20px;
+    bottom: 45px;
+  }
+.player__img4{
+    z-index: 100;
+    position: absolute;
+    left: 55px;
+    bottom: 45px;
+  }
