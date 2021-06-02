@@ -1,25 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+import CreateGrid from './component/setup/CreateGrid'
+import './App.css'
 
-function App() {
+const App = () => {
+  const [col, setCol] = useState(1)
+  const [row, setRow] = useState(1)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app__container">
+      
+      <CreateGrid col={4} row={5}/>
+      
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

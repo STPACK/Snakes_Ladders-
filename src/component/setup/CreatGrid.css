@@ -1,0 +1,21 @@
+.squares__container{
+    display: flex;
+    flex-flow: column-reverse;
+    max-width: 500px;
+    padding: 10px;
+    
+}
+
+.col__grid{
+    width: auto;
+    height: 100px;
+    border: 1px solid black;
+}
+
+.col__color{
+    background-color: rgba(85, 181, 106, 0.2);
+}
+
+.row__flex{
+    flex-flow: row-reverse;
+}
