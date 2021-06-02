@@ -1,6 +1,21 @@
 .app__container{
   width: 900px;
+  height: 630;
   margin: 0 auto;
+  margin-top: 50px;
   display: flex;
-  flex-flow: column;
+  flex-flow: row;
+}
+
+
+.squares__container{
+  display: flex;
+  flex-flow: column-reverse;
+  position: relative;
+}
+.player__img{
+  z-index: 100;
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
 }

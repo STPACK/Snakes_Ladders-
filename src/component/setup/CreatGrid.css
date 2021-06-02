@@ -1,14 +1,13 @@
 .squares__container{
     display: flex;
     flex-flow: column-reverse;
-    max-width: 500px;
-    padding: 10px;
-    
+    width: 500px;
+    position: relative;
 }
 
 .col__grid{
     width: auto;
-    height: 100px;
+    height: 90px;
     border: 1px solid black;
 }
 
@@ -18,4 +17,13 @@
 
 .row__flex{
     flex-flow: row-reverse;
+}
+.img__player{
+    z-index: 100;
+    position: absolute;
+  }
+
+.col,.row{
+    margin: 0;
+    padding: 0;
 }

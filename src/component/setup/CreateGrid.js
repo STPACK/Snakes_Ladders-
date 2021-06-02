@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useRef } from "react";
+import img2 from "../../assets/Play/PlayerMaps_2.svg";
 import "./CreatGrid.css";
 
 const CreateGrid = ({ row, col }) => {
+  let squaresRef = useRef();
+ 
+
   const drawingSquares = () => {
     let items = [];
     for (let i = 0; i < row; i++) {
@@ -18,8 +22,12 @@ const CreateGrid = ({ row, col }) => {
     let items = [];
     for (let i = 1; i <= col; i++) {
       items.push(
-        <div className={`col col__grid ${i % 2 === 0 && "col__color"}`} key={i}>
-          {rowIndex * row + i}
+        <div
+          className={`col col__grid ${i % 2 === 0 && "col__color"}`}
+          key={i}
+          id={rowIndex * col + i}
+        >
+          {rowIndex * col + i}
         </div>
       );
     }
@@ -28,9 +36,13 @@ const CreateGrid = ({ row, col }) => {
 
   return (
     <>
-      <div className="squares__container">{drawingSquares()}</div>
+   
+       
+
+        {drawingSquares()}
+      
     </>
   );
 };
 
-export default CreateGrid;
+export default React.memo(CreateGrid);
