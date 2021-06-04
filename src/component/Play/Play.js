@@ -1,8 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
-import { TweenMax, gsap, TimelineLite } from "gsap";
-import { CSSPlugin } from "gsap/CSSPlugin";
+
 import CreateGrid from "../setup/CreateGrid";
-import Info from "../Info/Info";
+
 import Dice from "../../assets/Play/Dice.svg";
 import "./Play.css";
 import Player1 from "../Player/Player1";
@@ -10,13 +9,10 @@ import Player2 from "../Player/Player2";
 import Player3 from "../Player/Player3";
 import Player4 from "../Player/Player4";
 
-const Play = () => {
+const Play = (props) => {
   const [col, setCol] = useState(5);
   const [row, setRow] = useState(7);
-  const [stop, setStop] = useState(false);
-  const [position, setPosition] = useState(1);
-  const [posCol, setPosCol] = useState(0);
-  const [posRow, setPosRow] = useState(0);
+
   const [queryPlayer, setQueryPlayer] = useState(1);
 
   const callbackRef1 = useRef();

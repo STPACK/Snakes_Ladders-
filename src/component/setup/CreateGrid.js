@@ -1,8 +1,7 @@
-import React, { useRef } from "react";
-import img2 from "../../assets/Play/PlayerMaps_2.svg";
+import React from "react";
 import Back from "../../assets/Play/stop.svg";
 import Next from "../../assets/Play/Next.svg";
-import Gohome from "../../assets/Play/MoveFromStart.svg";
+import goHome from "../../assets/Play/MoveFromStart.svg";
 import "./CreatGrid.css";
 
 const CreateGrid = ({ row, col }) => {
@@ -35,7 +34,7 @@ const CreateGrid = ({ row, col }) => {
             <img src={Back} alt="" />
           )}
           {result % 9 === 0 && <img src={Next} alt="" />}
-          {result % 11 === 0 && <img src={Gohome} alt="" />}
+          {result % 11 === 0 && <img src={goHome} alt="" />}
 
           <p> {result}</p>
         </div>

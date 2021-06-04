@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400&family=Prompt:wght@400&display=swap');
+
+:root{
+    --first-color: #2d5b9b;
+    --first-color-light: #55b56a;
+    --first-color-lighten: #ffffff;
+    --second-color:#39cdbc;
+    --second-color-light:#ffb648;
+
+    --bg-color:#fcfdff;
+    --border-color:#ecedff;
+    --disable-color:#d2d6da;
+    --sub-body-color:#929aa3;
+    --body-color:#565e6d;
+    --sub-head-color:#142235;
+    --head-color:#051225;
+
+    --en-font:'Poppins', sans-serif;
+    --thai-font:'Prompt', sans-serif;
+
+    --h1-font-size:46px;
+    --h2-font-size:30px;
+    --h3-font-size:24px;
+
+    --b1-font-size:18px;
+    --b2-font-size:16px;
+    --b3-font-size:14px;
+    --b4-font-size:12px;
+
+ 
+
+}
+
+body{
+    font-family: var(--en-font);
+    background-color: var(--bg-color);
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+h1,
+h2,
+h3,
+ul,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+.button {
+    display: inline-block;
+    
+    border-radius: 0.25rem;
+    
+    transition: 0.3s;
+  }
+
+.col,.row{
+    margin: 0;
+    padding: 0;
+}
