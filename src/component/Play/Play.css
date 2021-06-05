@@ -1,4 +1,4 @@
-.app__container{
+.play__container{
     width: 900px;
     height: 630;
     margin: 0 auto;
@@ -11,6 +11,11 @@
   .squares__container{
     display: flex;
     flex-flow: column-reverse;
+    width: 500px;
     position: relative;
+  }
+
+  .playInfo__container{
+    width: 400px;
   }
  

@@ -115,7 +115,6 @@ const Home = (props) => {
           />
         ))}
       </div>
-      {/* <button style={{backgroundColor:`${colorTest}`,color:'#fff'}}>12346</button> */}
       <button
         className="button button-play"
         onClick={letPlayHandler}

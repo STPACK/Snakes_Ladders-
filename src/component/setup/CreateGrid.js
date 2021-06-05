@@ -4,9 +4,8 @@ import Next from "../../assets/Play/Next.svg";
 import goHome from "../../assets/Play/MoveFromStart.svg";
 import "./CreatGrid.css";
 
-const CreateGrid = ({ row, col }) => {
- 
-
+const CreateGrid = ({col,row}) => {
+  
   const drawingSquares = () => {
     let items = [];
     for (let i = 0; i < row; i++) {

@@ -1,11 +1,11 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { TweenMax, gsap, TimelineLite } from "gsap";
 import { CSSPlugin } from "gsap/CSSPlugin";
 import Player from "../../assets/Play/PlayerMaps_1.svg";
 import "./Player.css";
 
 
-const Player1 = (props) => {
+const Move = (props) => {
 
   const {col,row,randomDice}=props
 
@@ -148,24 +148,6 @@ const Player1 = (props) => {
         setPosition(1); 
       }
   }
-
-  return (
-    <>
-    
-        <div className="player__img1" ref={(el) => (imgPlayer = el)}>
-          <img src={Player} alt="player1" />
-        </div>
-        <div>
-
-        <button onClick={()=>random(1)}>1</button>
-        <button onClick={()=>random(2)}>2</button>
-        <button onClick={()=>random(3)}>3</button>
-        <button onClick={()=>random(4)}>4</button>
-        <button onClick={()=>random(5)}>5</button>
-        <button onClick={()=>random(6)}>6</button>
-        </div>
-    </>
-  );
 };
 
-export default Player1;
+export default Move;

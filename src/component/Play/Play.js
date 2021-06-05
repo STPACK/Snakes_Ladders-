@@ -1,76 +1,80 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
+import {connect} from 'react-redux'
 
 import CreateGrid from "../setup/CreateGrid";
+import TestPlayer from "../Player/TestPlayer";
+import Info from "../Info/Info";
 
-import Dice from "../../assets/Play/Dice.svg";
 import "./Play.css";
-import Player1 from "../Player/Player1";
-import Player2 from "../Player/Player2";
-import Player3 from "../Player/Player3";
-import Player4 from "../Player/Player4";
+
 
 const Play = (props) => {
-  const [col, setCol] = useState(5);
-  const [row, setRow] = useState(7);
 
-  const [queryPlayer, setQueryPlayer] = useState(1);
+  const {playerList,col,row} = props
+  const [nextTurn, setNextTurn] = useState(0)
 
-  const callbackRef1 = useRef();
-  const callbackRef2 = useRef();
-  const callbackRef3 = useRef();
-  const callbackRef4 = useRef();
+  const player1Ref = useRef();
+  const player2Ref = useRef();
+  const player3Ref = useRef();
+  const player4Ref = useRef();
 
-  const selectPlayer = () => {
-    if (queryPlayer === 1) {
-      callbackRef1.current();
-      setQueryPlayer(queryPlayer + 1);
+  const selectPlayerRef =(index) =>{
+    switch (index) {
+      case 0: return player1Ref
+      case 1: return player2Ref
+      case 2: return player3Ref
+      case 3: return player4Ref
+      default:return null
     }
-    if (queryPlayer === 2) {
-      callbackRef2.current();
-      setQueryPlayer(queryPlayer + 1);
-    }
-    if (queryPlayer === 3) {
-      callbackRef3.current();
-      setQueryPlayer(queryPlayer + 1);
-    }
-    if (queryPlayer === 4) {
-      callbackRef4.current();
-      setQueryPlayer(1);
-    }
-  };
+  }
 
-  const randomDice1 = (callback) => {
-    callbackRef1.current = callback;
-  };
-  const randomDice2 = (callback) => {
-    callbackRef2.current = callback;
-  };
-  const randomDice3 = (callback) => {
-    callbackRef3.current = callback;
-  };
-  const randomDice4 = (callback) => {
-    callbackRef4.current = callback;
-  };
+  const queryPlayerTurn = (point) =>{
+      const playerLength =playerList.length
+      console.log("point = "+point);
+      playerMove(point)
+      if(nextTurn<playerLength-1){
+        setNextTurn(nextTurn+1)
+      }else{ setNextTurn(0)}
+  }
+
+  const playerMove = (point)=>{
+    switch (nextTurn) {
+      case 0: return player1Ref.current.Dice(point)
+      case 1: return player2Ref.current.Dice(point)
+      case 2: return player3Ref.current.Dice(point)
+      case 3: return player4Ref.current.Dice(point)
+      default: return null
+    }
+  }
+ 
 
   return (
-    <div className="app__container">
+    <div className="play__container">
       <div className="squares__container">
-        <CreateGrid col={col} row={row} />
-        <Player1 randomDice={randomDice1} col={col} row={row} />
-        <Player2 randomDice={randomDice2} col={col} row={row} />
-        <Player3 randomDice={randomDice3} col={col} row={row} />
-        <Player4 randomDice={randomDice4} col={col} row={row} />
+        <CreateGrid col={col}  row={row} />
+        {playerList.map((res,index)=>(
+          <TestPlayer key={index} ref={selectPlayerRef(index)} col={col} row={row} index={index} name={res}/>
+        ))}
+
       </div>
 
-      <div>
-        <h2>Your turn</h2>
-
-        <div onClick={selectPlayer}>
-          <img src={Dice} alt="dice" />
-        </div>
+      <div className="playInfo__container">
+        <Info playerList={playerList} diceHandler={queryPlayerTurn} nextTurn={nextTurn} />
+        
+        <button onClick={()=>player1Ref.current.Dice(1)}>test1</button>
+        <button onClick={()=>player2Ref.current.Dice()}>test2</button>
       </div>
     </div>
   );
 };
 
-export default Play;
+const mapStateToProps = state =>{
+  return{
+    playerList:state.player,
+    col:state.col,
+    row:state.row
+  }
+}
+
+
+export default connect(mapStateToProps)(Play)

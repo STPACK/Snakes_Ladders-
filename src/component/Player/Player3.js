@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { TweenMax, gsap, TimelineLite } from "gsap";
 import { CSSPlugin } from "gsap/CSSPlugin";
 import Player from "../../assets/Play/PlayerMaps_3.svg";

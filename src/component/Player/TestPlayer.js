@@ -1,13 +1,17 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, forwardRef,useImperativeHandle } from "react";
 import { TweenMax, gsap, TimelineLite } from "gsap";
 import { CSSPlugin } from "gsap/CSSPlugin";
-import Player from "../../assets/Play/PlayerMaps_1.svg";
+import {selectPositionPlayer,selectPlayerMap} from '../utility';
+
 import "./Player.css";
 
 
-const Player1 = (props) => {
+const TestPlayer = (props,ref) => {
 
-  const {col,row,randomDice}=props
+  const {col,row,index}=props
+  const {posLeft,posBottom}=selectPositionPlayer(index)
+  const playerMap = selectPlayerMap(index)
+  
 
   let imgPlayer = useRef(null);
   
@@ -18,19 +22,19 @@ const Player1 = (props) => {
   const [position, setPosition] = useState(1);
   const [posCol, setPosCol] = useState(0);
   const [posRow, setPosRow] = useState(0);
-  const posLeft = 20
-  const posBottom = 10
+ 
 
+  useImperativeHandle(
+      ref,
+      () => ({
+         Dice:(point)=>{
+            move(point);
+          }
+      })
+  )
 
-  const Dice = () => {
-    const rndInt = Math.floor(Math.random() * 6) + 1;
-    random(rndInt);
-  };
-
-  randomDice(Dice)
-
-  const random = (i) => {
-    let result = i + posCol;
+  const move = (point) => {
+    let result = point + posCol;
     let resRow =posRow
     console.log("rest ==" +result);
     
@@ -91,30 +95,29 @@ const Player1 = (props) => {
           }
       }
     }
-        const resPosition =position+i
+        const resPosition =position+point
         console.log(resPosition);
     
         if(resPosition%7 ===0 || resPosition%9===0 || resPosition%11===0){
-            spAction(resPosition,result,resRow)
+            specialAction(resPosition,result,resRow)
         }else{
-            setPosition(position+i);
+            setPosition(resPosition);
         }
   };
 
-  const spAction = (i,res,resRow) => {
-      if(i%7 ===0){
-        setPosition(i);
+  const specialAction = (resPosition,res,resRow) => {
+      if(resPosition%7 ===0){
+        setPosition(resPosition);
        setStop(true)
       }
-      if(i%9 ===0){
-        setPosition(i+3);
+      if(resPosition%9 ===0){
+        setPosition(resPosition+3);
         let result = 3 + res;
     
         if (result < col) {
           if (resRow % 2 === 0) { 
             TweenMax.to(imgPlayer, { left: result * (500 / col) + posLeft, bottom: resRow * 90 + posBottom, delay:1});
             setPosCol(result);
-    
           } else { 
             TweenMax.to(imgPlayer, {left: (col - result - 1) * (500 / col) + posLeft, bottom: resRow * 90 + posBottom,delay:1 });
             setPosCol(result);
@@ -123,7 +126,6 @@ const Player1 = (props) => {
             console.log("result =="+result);
           if (resRow % 2 === 0) {
             let colResult = Math.abs(col - result);
-            
                 tl.to(imgPlayer, {left: (col - 1) * (500 / col) + posLeft,bottom: resRow * 90 + posBottom,delay:1})
                   .to(imgPlayer, {left: (col - 1) * (500 / col) + posLeft,bottom: (resRow + 1) * 90 + posBottom,})
                   .to(imgPlayer, {left: (col - colResult - 1) * (500 / col) + posLeft,bottom: (resRow + 1) * 90 + posBottom, });
@@ -141,7 +143,7 @@ const Player1 = (props) => {
           }
         }  
       }
-      if(i%11 ===0){
+      if(resPosition%11 ===0){
         tl.to(imgPlayer, {left:  posLeft,bottom: posBottom,delay:1}) 
         setPosRow(0);
         setPosCol(0);
@@ -151,21 +153,11 @@ const Player1 = (props) => {
 
   return (
     <>
-    
-        <div className="player__img1" ref={(el) => (imgPlayer = el)}>
-          <img src={Player} alt="player1" />
-        </div>
-        <div>
-
-        <button onClick={()=>random(1)}>1</button>
-        <button onClick={()=>random(2)}>2</button>
-        <button onClick={()=>random(3)}>3</button>
-        <button onClick={()=>random(4)}>4</button>
-        <button onClick={()=>random(5)}>5</button>
-        <button onClick={()=>random(6)}>6</button>
+        <div className="player-icon" style={{left:`${posLeft}px`,bottom:`${posBottom}px`}} ref={(el) => (imgPlayer = el)}>
+          <img src={playerMap} alt="player_img" />
         </div>
     </>
   );
 };
 
-export default Player1;
+export default forwardRef(TestPlayer)
