@@ -1,7 +1,7 @@
 import * as actionTypes from "./actionTypes";
 
 const initialState = {
-  player: ['pack','rat'],
+  player: [],
   history:[],
   stopPlayer:[false,false,false,false],
   whoWin:null,

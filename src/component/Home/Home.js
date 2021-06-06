@@ -16,7 +16,7 @@ const Home = (props) => {
   const [col, setCol] = useState(4);
   const [name, setName] = useState("");
 
-  const configRow = (payload) => {
+  const configRow = (payload) => {     // ตั้งให้ row และ col อยู่ใน ช่วง 4-7
     if (payload > 7 && payload !== "") return setRow(7);
     if (payload < 4 && payload !== "") return setRow(4);
     return setRow(payload);
@@ -27,7 +27,7 @@ const Home = (props) => {
     return setCol(payload);
   };
 
-  const letPlayHandler = () => {
+  const letPlayHandler = () => {       // let to play
     dispatch({ type: actionTypes.SETUP_BOARD,col:col,row:row });
     letPlay()
   }

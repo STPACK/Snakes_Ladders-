@@ -6,8 +6,7 @@ import * as actionTypes from '../../store/actionTypes'
 import Modal from '../Modal/Modal'
 
 import CreateGrid from "../setup/CreateGrid";
-import TestPlayer from "../Player/TestPlayer";
-import TestPlayer2 from "../Player/TestPlayer2";
+import TestPlayer2 from "../Player/Player";
 import Info from "../Info/Info";
 import "./Play.css";
 
@@ -20,7 +19,6 @@ const Play = (props) => {
 
   useEffect(() => {
     if(stopPlayer[nextTurn]){                      //เช็คว่าplayer โดนหยุด 1รอบหรือไม่ ถ้าใช่ให้ + nextTurn ไปอีก1
-      console.log("player"+nextTurn+"stop")
       if(nextTurn<playerList.length-1){
         setNextTurn(nextTurn+1)
       }else{ setNextTurn(0)}
@@ -95,22 +93,7 @@ const Play = (props) => {
       </div>
 
       <div className="playInfo__container">
-        <Info playerList={playerList} diceHandler={queryPlayerTurn} nextTurn={nextTurn} />
-        
-        <button onClick={()=>player1Ref.current.reset()}>test</button>
-        <button onClick={()=>player1Ref.current.Dice(1)}>1</button>
-        <button onClick={()=>player1Ref.current.Dice(2)}>2</button>
-        <button onClick={()=>player1Ref.current.Dice(3)}>3</button>
-        <button onClick={()=>player1Ref.current.Dice(4)}>4</button>
-        <button onClick={()=>player1Ref.current.Dice(5)}>5</button>
-        <button onClick={()=>player1Ref.current.Dice(6)}>6</button>
-        <br />
-        <button onClick={()=>player2Ref.current.Dice(1)}>1</button>
-        <button onClick={()=>player2Ref.current.Dice(2)}>2</button>
-        <button onClick={()=>player2Ref.current.Dice(3)}>3</button>
-        <button onClick={()=>player2Ref.current.Dice(4)}>4</button>
-        <button onClick={()=>player2Ref.current.Dice(5)}>5</button>
-        <button onClick={()=>player2Ref.current.Dice(6)}>6</button>
+        <Info playerList={playerList} diceHandler={queryPlayerTurn} nextTurn={nextTurn} goHome={goHomeHandler} restart={playAgainHandler} />
       </div>
     </div>
   );

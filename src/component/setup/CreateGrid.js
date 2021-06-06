@@ -1,7 +1,8 @@
 import React from "react";
-import Back from "../../assets/Play/stop.svg";
+import stop from "../../assets/Play/stop.svg";
 import Next from "../../assets/Play/Next.svg";
 import goHome from "../../assets/Play/MoveFromStart.svg";
+import finish from "../../assets/Play/Finish.svg";
 import "./CreatGrid.css";
 
 const CreateGrid = ({col,row}) => {
@@ -25,17 +26,20 @@ const CreateGrid = ({col,row}) => {
       items.push(
         <div
           className={`col col__grid ${result % 2 !== 0 && "col__color"}`}
+          style={{backgroundColor: result===1? '#ffb648' : result===col*row ? '#39cdbc': null}}
+          
           key={i}
           id={rowIndex * col + i}
         >
           <img src="" alt="" />
           {result % 7 === 0 && result !== row * col && (
-            <img src={Back} alt="" />
+            <img src={stop} alt="" />
           )}
           {result % 9 === 0 && <img src={Next} alt="" className={ rowIndex%2 !== 0 ? 'flip-img' : null} />}
           {result % 11 === 0 && <img src={goHome} alt="" />}
+          {result === col*row && <img src={finish} alt="" />}
 
-          <p> {result}</p>
+          <p className="mx-1"> {result} { result===col*row && 'FINISH'}{ result===1 && 'START'}</p>
         </div>
       );
     }

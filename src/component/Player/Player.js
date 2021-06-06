@@ -1,5 +1,5 @@
 import React, { useState, useRef, forwardRef,useImperativeHandle } from "react";
-import {useDispatch,useSelector } from 'react-redux'
+import {useDispatch } from 'react-redux'
 
 import * as actionTypes from '../../store/actionTypes'
 
@@ -126,17 +126,17 @@ const TestPlayer2 = (props,ref) => {
              result +=3 ;
             if (result < col) {
               if (resRow % 2 === 0) { 
-                master.add(TweenMax.to(imgPlayer, { left: result * (500 / col) + posLeft, bottom: resRow * 90 + posBottom,delay:1}))
+                master.add(TweenMax.to(imgPlayer, { left: result * (500 / col) + posLeft, bottom: resRow * 90 + posBottom,delay:0.8}))
                 setPosCol(result);
               } else { 
-                master.add(TweenMax.to(imgPlayer, {left: (col - result - 1) * (500 / col) + posLeft, bottom: resRow * 90 + posBottom,delay:1}))
+                master.add(TweenMax.to(imgPlayer, {left: (col - result - 1) * (500 / col) + posLeft, bottom: resRow * 90 + posBottom,delay:0.8}))
                 setPosCol(result);
               }
             } else {
                 
               if (resRow % 2 === 0) {
                 let colResult = Math.abs(result-col);
-                master.add(master.to(imgPlayer, {left: (col - 1) * (500 / col) + posLeft,bottom: resRow * 90 + posBottom,delay:1})
+                master.add(master.to(imgPlayer, {left: (col - 1) * (500 / col) + posLeft,bottom: resRow * 90 + posBottom,delay:0.8})
                       .to(imgPlayer, {left: (col - 1) * (500 / col) + posLeft,bottom: (resRow + 1) * 90 + posBottom,})
                       .to(imgPlayer, {left: (col - colResult - 1) * (500 / col) + posLeft,bottom: (resRow + 1) * 90 + posBottom, }))
                     setPosRow(resRow + 1);
@@ -144,7 +144,7 @@ const TestPlayer2 = (props,ref) => {
                 
               } else {
                   let colResult = Math.abs(result-col);
-                  master.add(master.to(imgPlayer, {left: 0 * (500 / col) + posLeft,bottom: resRow * 90 + posBottom,delay:1})
+                  master.add(master.to(imgPlayer, {left: 0 * (500 / col) + posLeft,bottom: resRow * 90 + posBottom,delay:0.8})
                         .to(imgPlayer, {left: 0 * (500 / col) + posLeft,bottom: (resRow + 1) * 90 + posBottom })
                         .to(imgPlayer, {left: colResult * (500 / col) + posLeft,bottom: (resRow + 1) * 90 + posBottom, }))
                       setPosRow(resRow + 1);
@@ -163,7 +163,7 @@ const TestPlayer2 = (props,ref) => {
             setPosition(resPosition+3);
           }
           if(resPosition%11 ===0){    // กลับไปจุดเริ่มต้น
-            master.add(master.to(imgPlayer, {left:  posLeft,bottom: posBottom,delay:1}))
+            master.add(master.to(imgPlayer, {left:  posLeft,bottom: posBottom,delay:0.8}))
             dispatch({type:actionTypes.ADD_HISTORY,name:name,point:0,text:'กลับจุดเริ่มต้น'})
             setPosRow(0);
             setPosCol(0);
