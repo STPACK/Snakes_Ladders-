@@ -32,7 +32,7 @@ const CreateGrid = ({col,row}) => {
           {result % 7 === 0 && result !== row * col && (
             <img src={Back} alt="" />
           )}
-          {result % 9 === 0 && <img src={Next} alt="" />}
+          {result % 9 === 0 && <img src={Next} alt="" className={ rowIndex%2 !== 0 ? 'flip-img' : null} />}
           {result % 11 === 0 && <img src={goHome} alt="" />}
 
           <p> {result}</p>

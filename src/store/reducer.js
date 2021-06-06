@@ -2,8 +2,12 @@ import * as actionTypes from "./actionTypes";
 
 const initialState = {
   player: ['pack','rat'],
-  row: 7,
-  col: 7,
+  history:[],
+  stopPlayer:[false,false,false,false],
+  whoWin:null,
+  reset:false,
+  row: 4,
+  col: 4,
   loading: false,
 };
 const addPlayer = (state, action) => {
@@ -32,6 +36,36 @@ const setupBoard = (state, action) => {
     row: action.row,
   };
 };
+const addHistory = (state, action) => {
+  const oldHistory = state.history
+  oldHistory.push({name:action.name,point:action.point,text:action.text})
+  return {
+    ...state,
+    history:oldHistory
+    
+  };
+};
+const setStopTurn = (state, action) => {
+  const oldStopPlayer = state.stopPlayer
+  oldStopPlayer[action.index]=action.method
+  return {
+    ...state,
+    stopPlayer:oldStopPlayer
+  };
+};
+const reset = (state, action) => {
+  return {
+    ...state,
+    history:[],
+    stopPlayer:[false,false,false,false],
+    whoWin:null,
+    reset:true,
+    loading: false,
+  };
+};
+
+
+
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -41,6 +75,16 @@ const reducer = (state = initialState, action) => {
       return deletePlayer(state, action);
     case actionTypes.SETUP_BOARD:
       return setupBoard(state,action)
+    case actionTypes.SET_LOADING:
+      return {...state,loading:action.method}
+    case actionTypes.ADD_HISTORY:
+      return addHistory(state,action)
+    case actionTypes.SET_STOP_TURN:
+      return setStopTurn(state,action)
+    case actionTypes.SET_WHO_WIN:
+      return {...state,whoWin:action.index}
+    case actionTypes.RESET:
+      return reset(state,action) 
 
     default:
       return state;

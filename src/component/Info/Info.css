@@ -42,7 +42,10 @@
   padding-left: 10px;
   border: 1px solid var(--border-color);
   overflow-y: scroll;
+  font-size: var(--b4-font-size);
+  font-weight: 500;
 }
+
 
 .info-history::-webkit-scrollbar {
   width: 5px;
@@ -93,7 +96,24 @@
   margin-top: 5px;
   border: 1px solid var(--border-color);
 }
-.player-action-img {
+.play-action-button{
+  background-color: inherit;
+  border: none;
+}
+.play-action-button img{
   width: 70px;
-  cursor: pointer;
+}
+
+
+.dice-rotate{
+  animation: rotation 0.8s infinite linear;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
 }

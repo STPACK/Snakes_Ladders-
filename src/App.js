@@ -10,7 +10,7 @@ const App = () => {
     <>
     { 
       letPlay
-      ? <Play/> 
+      ? <Play goHome={()=>setLetPlay(false)}/> 
       : <Home letPlay={()=>setLetPlay(true)}/>
      }
       

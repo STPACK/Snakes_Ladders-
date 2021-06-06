@@ -1,4 +1,7 @@
 import React, { useState, useRef, forwardRef,useImperativeHandle } from "react";
+import {useDispatch,useSelector } from 'react-redux'
+
+import * as actionTypes from '../../store/actionTypes'
 
 import { TweenMax, gsap, TimelineLite } from "gsap";
 import { CSSPlugin } from "gsap/CSSPlugin";
@@ -9,44 +12,53 @@ import "./Player.css";
 
 const TestPlayer2 = (props,ref) => {
 
-  const {col,row,index}=props
+  const {col,row,index,name}=props
+
+  const dispatch = useDispatch()
   const {posLeft,posBottom}=selectPositionPlayer(index)
   const playerMap = selectPlayerMap(index)
   
-
-  let imgPlayer = useRef(null);
-  
   gsap.registerPlugin(CSSPlugin);
-  
-  
 
-  const [stop, setStop] = useState(false)
+  
   const [position, setPosition] = useState(1);
   const [posCol, setPosCol] = useState(0);
   const [posRow, setPosRow] = useState(0);
- 
-
+  let imgPlayer = useRef(null);
+  
+  
   useImperativeHandle(
       ref,
       () => ({
          Dice:(point)=>{
             move(point);
+          },
+          reset:()=>{
+            resetAll()
           }
       })
   )
+  const resetAll =()=>{             // reset
+    TweenMax.to(imgPlayer, {left:  posLeft,bottom: posBottom})
+    setPosRow(0);
+    setPosCol(0);
+    setPosition(1); 
+  }
 
   const move = (point) => {
     
     let master =new TimelineLite();
 
-    let result = point + posCol;
+    let result = point + posCol;   // บวกเพื่อ นำมาคำนวณเพื่อหาว่า ขยับใน column พอหรือไม่
     let resRow =posRow
     const resPosition =position+point
+    if(resPosition >= col*row){ return  dispatch({type:actionTypes.SET_WHO_WIN,index:index})}  // หากแต้มเกิน จำนวนช่อง คือผู้ชนะ
     
     
     if (result < col) {                     // เช็คว่าเลื่อนภายใน column หรือไม่
       if (posRow % 2 === 0) {               // เช็คว่าเป็นแถวคู่หรือแถวคี่
-        master.add(TweenMax.to(imgPlayer, { left: result * (500 / col) + posLeft, bottom: posRow * 90 + posBottom, }))  // แถวคู่ add timeline
+        master.add(TweenMax.to(imgPlayer, { left: result * (500 / col) + posLeft, bottom: posRow * 90 + posBottom, }))
+          // แถวคู่ add timeline
         setPosCol(result);
 
       } else { 
@@ -54,7 +66,7 @@ const TestPlayer2 = (props,ref) => {
         setPosCol(result);
       }
     } else {                                // มีการขยับ Row
-      if (posRow % 2 === 0) {               // เช็ค row ปัจจุบันว่า อยู่ คู่หรือคี่
+      if (posRow % 2 === 0) {               // เช็ค row ปัจจุบันว่า อยู่ คู่หรือคี่  แถวคู่
         let colResult = Math.abs(result-col);
         if(colResult>=col){                 //  มีการขยับมากกว่า 1 row
             colResult = colResult-col
@@ -77,9 +89,9 @@ const TestPlayer2 = (props,ref) => {
             setPosRow(posRow + 1);
             setPosCol(colResult);
         }
-      } else {
+      } else {                      //แถวคี่
           let colResult = Math.abs(result-col);
-          if(colResult>=col){
+          if(colResult>=col){                       //ขยับมากกว่า 1row
             colResult = colResult-col
             result=colResult
             master.add(master.to(imgPlayer, {left: 0 * (500 / col) + posLeft,bottom: posRow * 90 + posBottom,})
@@ -90,7 +102,7 @@ const TestPlayer2 = (props,ref) => {
             resRow=posRow + 2
           setPosRow(posRow + 2);
           setPosCol(colResult);
-          }else{
+          }else{                                //ขยับ 1 row
               result=colResult
               master.add(master.to(imgPlayer, {left: 0 * (500 / col) + posLeft,bottom: posRow * 90 + posBottom,})
                 .to(imgPlayer, {left: 0 * (500 / col) + posLeft,bottom: (posRow + 1) * 90 + posBottom })
@@ -101,12 +113,14 @@ const TestPlayer2 = (props,ref) => {
           }
       }
     }
+    dispatch({type:actionTypes.ADD_HISTORY,name:name,point:point,text:'เดินไปข้างหน้า'})           // เพิ่ม history
 
     if(resPosition%7 ===0 || resPosition%9===0 || resPosition%11===0){   // เช็ค special Action
         
         if(resPosition%7 ===0){    //หยุด 1 รอบ
+            dispatch({type:actionTypes.SET_STOP_TURN,index:index,method:true})
+            dispatch({type:actionTypes.ADD_HISTORY,name:name,point:0,text:'หยุดเดิน 1 ครั้ง'})
             setPosition(resPosition);
-            setStop(true)
           }
           if(resPosition%9 ===0){  // เดินหน้า 3 ช่อง
              result +=3 ;
@@ -138,22 +152,28 @@ const TestPlayer2 = (props,ref) => {
               }
             }  
 
-            if((resPosition+3)%7 === 0){
-                setStop(true)
+            dispatch({type:actionTypes.ADD_HISTORY,name:name,point:0,text:'เดินหน้า 3 ช่อง'})
+
+            if((resPosition+3)%7 === 0){   //  เช็คอีกครั้งมาขยับมาเจอ หยุด 1 รอบหรือไม่
+                dispatch({type:actionTypes.SET_STOP_TURN,index:index,method:true})
+                dispatch({type:actionTypes.ADD_HISTORY,name:name,point:0,text:'หยุดเดิน 1 ครั้ง'})
+                
             }
+            
             setPosition(resPosition+3);
           }
-          if(resPosition%11 ===0){
+          if(resPosition%11 ===0){    // กลับไปจุดเริ่มต้น
             master.add(master.to(imgPlayer, {left:  posLeft,bottom: posBottom,delay:1}))
+            dispatch({type:actionTypes.ADD_HISTORY,name:name,point:0,text:'กลับจุดเริ่มต้น'})
             setPosRow(0);
             setPosCol(0);
             setPosition(1); 
           }
-        }else{
-            setPosition(resPosition);
-        }
+    }else{
+        setPosition(resPosition);
+    }
 
-    master.play().then(()=>console.log("movedone"))
+    master.play().then(()=> dispatch({type:actionTypes.SET_LOADING,method:false}))   // เริ่ม animation
 
    
   };

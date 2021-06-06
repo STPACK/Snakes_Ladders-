@@ -7,9 +7,9 @@
     flex-flow: row;
   }
   
-  
   .squares__container{
     display: flex;
+    height: fit-content;
     flex-flow: column-reverse;
     width: 500px;
     position: relative;

@@ -1,3 +1,8 @@
 export const ADD_PLAYER ="ADD_PLAYER"
 export const DELETE_PLAYER="DELETE_PLAYER"
 export const SETUP_BOARD="SETUP_BOARD"
+export const SET_LOADING="SET_LOADING"
+export const ADD_HISTORY="ADD_HISTORY"
+export const SET_STOP_TURN="SET_STOP_TURN"
+export const SET_WHO_WIN="SET_WHO_WIN"
+export const RESET="RESET"

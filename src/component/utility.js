@@ -9,11 +9,11 @@ import playerIcon4 from '../assets/Home-Setting/Player_4.svg'
 
 export const selectPositionPlayer = index =>{
     switch (index) {
-        case 0: return{posLeft:20,posBottom:10}
-        case 1: return{posLeft:55,posBottom:10}
-        case 2: return{posLeft:20,posBottom:45}
-        case 3: return{posLeft:55,posBottom:45}
-        default:return{posLeft:20,posBottom:10}
+        case 0: return{posLeft:10,posBottom:10}
+        case 1: return{posLeft:40,posBottom:10}
+        case 2: return{posLeft:10,posBottom:45}
+        case 3: return{posLeft:40,posBottom:45}
+        default:return{posLeft:10,posBottom:10}
     }
 }
 export const selectPlayerIcon = index =>{
