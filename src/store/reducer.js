@@ -1,9 +1,9 @@
 import * as actionTypes from "./actionTypes";
 
 const initialState = {
-  player: ['pack','bat','rat'],
+  player: ['pack','rat'],
   row: 7,
-  col: 5,
+  col: 7,
   loading: false,
 };
 const addPlayer = (state, action) => {

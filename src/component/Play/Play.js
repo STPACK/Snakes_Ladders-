@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 
 import CreateGrid from "../setup/CreateGrid";
 import TestPlayer from "../Player/TestPlayer";
+import TestPlayer2 from "../Player/TestPlayer2";
 import Info from "../Info/Info";
 
 import "./Play.css";
@@ -53,7 +54,7 @@ const Play = (props) => {
       <div className="squares__container">
         <CreateGrid col={col}  row={row} />
         {playerList.map((res,index)=>(
-          <TestPlayer key={index} ref={selectPlayerRef(index)} col={col} row={row} index={index} name={res}/>
+          <TestPlayer2 key={index} ref={selectPlayerRef(index)} col={col} row={row} index={index} name={res}/>
         ))}
 
       </div>
@@ -61,8 +62,19 @@ const Play = (props) => {
       <div className="playInfo__container">
         <Info playerList={playerList} diceHandler={queryPlayerTurn} nextTurn={nextTurn} />
         
-        <button onClick={()=>player1Ref.current.Dice(1)}>test1</button>
-        <button onClick={()=>player2Ref.current.Dice()}>test2</button>
+        <button onClick={()=>player1Ref.current.Dice(1)}>1</button>
+        <button onClick={()=>player1Ref.current.Dice(2)}>2</button>
+        <button onClick={()=>player1Ref.current.Dice(3)}>3</button>
+        <button onClick={()=>player1Ref.current.Dice(4)}>4</button>
+        <button onClick={()=>player1Ref.current.Dice(5)}>5</button>
+        <button onClick={()=>player1Ref.current.Dice(6)}>6</button>
+        <br />
+        <button onClick={()=>player2Ref.current.Dice(1)}>1</button>
+        <button onClick={()=>player2Ref.current.Dice(2)}>2</button>
+        <button onClick={()=>player2Ref.current.Dice(3)}>3</button>
+        <button onClick={()=>player2Ref.current.Dice(4)}>4</button>
+        <button onClick={()=>player2Ref.current.Dice(5)}>5</button>
+        <button onClick={()=>player2Ref.current.Dice(6)}>6</button>
       </div>
     </div>
   );

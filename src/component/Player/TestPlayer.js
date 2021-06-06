@@ -1,4 +1,5 @@
 import React, { useState, useRef, forwardRef,useImperativeHandle } from "react";
+
 import { TweenMax, gsap, TimelineLite } from "gsap";
 import { CSSPlugin } from "gsap/CSSPlugin";
 import {selectPositionPlayer,selectPlayerMap} from '../utility';
@@ -105,14 +106,14 @@ const TestPlayer = (props,ref) => {
         }
   };
 
-  const specialAction = (resPosition,res,resRow) => {
+  const specialAction = (resPosition,result,resRow) => {
       if(resPosition%7 ===0){
         setPosition(resPosition);
        setStop(true)
       }
       if(resPosition%9 ===0){
         setPosition(resPosition+3);
-        let result = 3 + res;
+         result +=3;
     
         if (result < col) {
           if (resRow % 2 === 0) { 
@@ -144,7 +145,7 @@ const TestPlayer = (props,ref) => {
         }  
       }
       if(resPosition%11 ===0){
-        tl.to(imgPlayer, {left:  posLeft,bottom: posBottom,delay:1}) 
+        tl.to(imgPlayer, {left:  posLeft,bottom: posBottom,delay:1}).then(()=>console.log("go home"))
         setPosRow(0);
         setPosCol(0);
         setPosition(1); 
