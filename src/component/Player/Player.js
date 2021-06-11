@@ -10,7 +10,7 @@ import {selectPositionPlayer,selectPlayerMap} from '../utility';
 import "./Player.css";
 
 
-const TestPlayer2 = (props,ref) => {
+const Player = (props,ref) => {
 
   const {col,row,index,name}=props
 
@@ -187,4 +187,4 @@ const TestPlayer2 = (props,ref) => {
   );
 };
 
-export default forwardRef(TestPlayer2)
+export default forwardRef(Player)

@@ -26,7 +26,7 @@ const CreateGrid = ({col,row}) => {
       items.push(
         <div
           className={`col col__grid ${result % 2 !== 0 && "col__color"}`}
-          style={{backgroundColor: result===1? '#ffb648' : result===col*row ? '#39cdbc': null}}
+          style={{backgroundColor: result===1? '#ffb648' : (result===col*row) ? '#39cdbc': null}}
           
           key={i}
           id={rowIndex * col + i}

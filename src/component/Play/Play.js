@@ -1,12 +1,12 @@
 import React, { useState, useRef,useEffect } from "react";
-import {useDispatch} from 'react-redux';
-import {connect} from 'react-redux'
+import {useDispatch,connect} from 'react-redux';
+
 
 import * as actionTypes from '../../store/actionTypes'
 import Modal from '../Modal/Modal'
 
 import CreateGrid from "../setup/CreateGrid";
-import TestPlayer2 from "../Player/Player";
+import Player from "../Player/Player";
 import Info from "../Info/Info";
 import "./Play.css";
 
@@ -75,7 +75,7 @@ const Play = (props) => {
       selectReset(i)
     }
   }
- const goHomeHandler = (params) => {  //  Go home  and reset all
+ const goHomeHandler = () => {  //  Go home  and reset all
   playAgainHandler()
   goHome()
  }
@@ -87,7 +87,7 @@ const Play = (props) => {
       <div className="squares__container">
         <CreateGrid col={col}  row={row} />
         {playerList.map((res,index)=>(
-          <TestPlayer2 key={index} ref={selectPlayerRef(index)} col={col} row={row} index={index} name={res} reset={reset}/>
+          <Player key={index} ref={selectPlayerRef(index)} col={col} row={row} index={index} name={res} reset={reset}/>
         ))}
 
       </div>
